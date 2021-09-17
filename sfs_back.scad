@@ -11,6 +11,8 @@ m3_head_diam = 6.1;     // space for the m3 head to fit loosely
 m3_head_height = 1.55;  // thickness of the cover under the head
 m3_hole_diam = 3.25;    // space for the m3 shaft and threads to pass
 
+shell_wall_thickness = 2.0;
+
 // btt m3 hole setup from https://github.com/bigtreetech/smart-filament-detection-module/blob/master/manual/smart%20filament%20sensor%20module%20manual201125.pdf
 //
 // top  A  B       C  bottom
@@ -57,12 +59,11 @@ module oval( depth, width, length )
 // cap( btt_depth, btt_width, btt_length)
 //   this is a hull between two ovals to make
 //   the basic shape of the cover
-module cap(depth, width, length)
+module cap(depth, width, length, lip_edge=1.0)
 {
     union() {
         top_width = width - depth*2;
         top_length = length - depth*2;
-        lip_edge = 1.0;
         hull()
         {
             // the base of the cap is an oval depth 1
@@ -82,17 +83,19 @@ module cap(depth, width, length)
 
 difference()
 {
-    thickness = 2;  // thickness of the walls of the shell
-
     union() {
         // hollow out a cap
         difference()
         {
-            cap(btt_back_depth, btt_width, btt_length);
-            move(z=-thickness)
+            cap(btt_back_depth, btt_width, btt_length, m3_head_height);
+            
+            // we'll make a resized cap offset from the first
+            // to hollow it out
+            move(z=-shell_wall_thickness)
             cap(btt_back_depth,
-                btt_width-thickness*2,
-                btt_length-thickness*2);
+                btt_width-shell_wall_thickness*2,
+                btt_length-shell_wall_thickness*2,
+                m3_head_height);
         }
 
         // cylinders around the fasteners
