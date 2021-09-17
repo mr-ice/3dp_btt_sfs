@@ -9,7 +9,7 @@ btt_back_depth = 4.50;  // overall depth of the back (observed)
 
 m3_head_diam = 6.1;     // space for the m3 head to fit loosely
 m3_head_height = 1.55;  // thickness of the cover under the head
-m3_hole_diam = 3.80;    // space for the m3 shaft and threads to pass
+m3_hole_diam = 3.25;    // space for the m3 shaft and threads to pass
 
 // btt m3 hole setup from https://github.com/bigtreetech/smart-filament-detection-module/blob/master/manual/smart%20filament%20sensor%20module%20manual201125.pdf
 //
